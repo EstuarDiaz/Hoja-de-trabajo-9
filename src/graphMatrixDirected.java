@@ -1,4 +1,4 @@
-public GraphMatrixDirected(int size)
+public class graphMatrixDirected(int size){
 // pre: size > 0
 // post: constructs an empty graph that may be expanded to
 // at most size vertices. Graph is directed if dir true
@@ -19,4 +19,5 @@ public void addEdge(V vLabel1, V vLabel2, E label)
 	// update matrix with new edge
 	Edge<V,E> e = new Edge<V,E>(vtx1.label(),vtx2.label(),label,true);
 	data[vtx1.index()][vtx2.index()] = e;
+}
 }
