@@ -1,10 +1,14 @@
+import java.util.Hashtable;
+import java.util.LinkedList;
+import java.util.Map;
+
 abstract public class GraphMatrix<V,E>
 	implements Graph<V,E>
 {
 	protected int size; // allocation size for graph
 	protected Object data[][]; // matrix - array of arrays
 	protected Map<V,GraphMatrixVertex<V>> dict; // labels -> vertices
-	protected List<Integer> freeList; // available indices in matrix
+	protected LinkedList<Integer> freeList; // available indices in matrix
 	protected boolean directed; // graph is directed
 
 	protected GraphMatrix(int size, boolean dir)
@@ -16,7 +20,7 @@ abstract public class GraphMatrix<V,E>
 		// label to index translation table
 		dict = new Hashtable<V,GraphMatrixVertex<V>>(size);
 		// put all indices in the free list
-		freeList = new SinglyLinkedList<Integer>();
+		freeList = new LinkedList<Integer>();
 		for (int row = size-1; row >= 0; row--)
 		freeList.add(new Integer(row));
 	}
@@ -59,3 +63,4 @@ abstract public class GraphMatrix<V,E>
 	// pre: vtx1 and vtx2 are labels of existing vertices
 	// post: an edge (possibly directed) is inserted between
 	// vtx1 and vtx2.
+}

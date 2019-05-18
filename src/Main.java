@@ -5,8 +5,7 @@ import java.util.Scanner;
 public class Main {
 	public static void main(String[] args) throws IOException {
         /* Leer archivo */
-		graphMatrixDirected G = new graphMatrixDirected();
-		Vertex V = new Vertex<V>();
+		GraphMatrix<String,String> G = new GraphMatrixDirected<String,String>(10);
 		G.addEdge("ciudad", "ciudad2", "km");
     	System.out.println("Ingrese el nombre del archivo del grafo.");
 		Scanner input = new Scanner(System.in);

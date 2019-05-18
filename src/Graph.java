@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public interface Graph<V,E> 
 {
 
