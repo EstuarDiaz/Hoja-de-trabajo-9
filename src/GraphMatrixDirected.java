@@ -1,5 +1,3 @@
-import com.sun.xml.internal.ws.util.StringUtils;
-
 public class GraphMatrixDirected<V,E> extends GraphMatrix<V,E>{
 	GraphMatrixDirected(int size)
 	
@@ -25,20 +23,6 @@ public class GraphMatrixDirected<V,E> extends GraphMatrix<V,E>{
 			this.edges.add(e);	
 		}
 		this.AdjMatrix[index1][index2] = (Float) weight;
-	}
-	
-	public void printMatrix() {
-		System.out.println("Matriz de adyacencia:");
-		for(int i = 0; i < this.size(); i++) {
-			String row = this.vertices.get(i)+": [";
-			for(int j = 0; j < this.size(); j++) {
-				row += this.AdjMatrix[i][j]+", ";
-			}
-			System.out.println(row.substring(0, row.length()-2)+"]");
-		}
-	}
-	
-	public void Floyd() {
-		
+		this.calculateCenter();
 	}
 }

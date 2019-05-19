@@ -37,6 +37,9 @@ public class Main {
 					}
 				}
 				G.printMatrix();
+				G.printMinimumMatrix();
+				G.printShortestPath(3, 2);
+				System.out.println("Centro: "+G.getCenter());
 	        }
 	        else {
 	        	System.out.println("El archivo esta vacio.");
