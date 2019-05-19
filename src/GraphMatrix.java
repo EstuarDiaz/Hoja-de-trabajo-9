@@ -1,66 +1,57 @@
-import java.util.Hashtable;
 import java.util.LinkedList;
-import java.util.Map;
 
-abstract public class GraphMatrix<V,E>
+public class GraphMatrix<V,E>
 	implements Graph<V,E>
 {
 	protected int size; // allocation size for graph
-	protected Object data[][]; // matrix - array of arrays
-	protected Map<V,GraphMatrixVertex<V>> dict; // labels -> vertices
-	protected LinkedList<Integer> freeList; // available indices in matrix
-	protected boolean directed; // graph is directed
-
+	protected LinkedList<V> vertices;
+	protected LinkedList<Edge<V,E>> edges;
+	protected Float[][] AdjMatrix;
+	
 	protected GraphMatrix(int size, boolean dir)
 	{
 		this.size = size; // set maximum size
-		directed = dir; // fix direction of edges
-		// the following constructs a size x size matrix
-		data = new Object[size][size];
-		// label to index translation table
-		dict = new Hashtable<V,GraphMatrixVertex<V>>(size);
-		// put all indices in the free list
-		freeList = new LinkedList<Integer>();
-		for (int row = size-1; row >= 0; row--)
-		freeList.add(new Integer(row));
+		this.vertices = new LinkedList<V>();
+		this.edges = new LinkedList<Edge<V,E>>();
+		this.AdjMatrix = new Float[size][size];
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				this.AdjMatrix[i][j] = Float.POSITIVE_INFINITY;
+				if(i == j) {
+					this.AdjMatrix[i][j] = (float) 0;
+				}
+			}
+		}
 	}
 
-	public void add(V label)
+	public void add(V vertex)
 	// pre: label is a non-null label for vertex
 	// post: a vertex with label is added to graph;
 	// if vertex with label is already in graph, no action
 	{
-		// if there already, do nothing
-		if (dict.containsKey(label)) return;
-		// verificar que aun existan indices disponibles para el vertice
-		// allocate a free row and column
-		int row = freeList.removeFirst().intValue();
-		// add vertex to dictionary
-		dict.put(label, new GraphMatrixVertex<V>(label, row));
+		this.vertices.add(vertex);
 	}
 
-	public V remove(V label)
-	// pre: label is non-null vertex label
-	// post: vertex with "equals" label is removed, if found
-	{
-		// find and extract vertex
-		GraphMatrixVertex<V> vert;
-		vert = dict.remove(label);
-		if (vert == null) return null;
-		// remove vertex from matrix
-		int index = vert.index();
-		// clear row and column entries
-		for (int row=0; row<size; row++) {
-			data[row][index] = null;
-			data[index][row] = null;
+
+	public E removeEdge(E edge) {
+		int index = this.edges.indexOf(edge);
+		for(int i = 0; i < this.size; i++) {
+			if(i != index) {
+				this.AdjMatrix[i][index] = Float.POSITIVE_INFINITY;
+				this.AdjMatrix[index][i] = Float.POSITIVE_INFINITY;	
+			}
 		}
-		// add node index to free list
-		freeList.add(new Integer(index));
-		return vert.label();
+		return edge;
+	}
+	
+	public int size() {
+		return this.size;
 	}
 
-	abstract public void addEdge(V v1, V v2, E label);
-	// pre: vtx1 and vtx2 are labels of existing vertices
-	// post: an edge (possibly directed) is inserted between
-	// vtx1 and vtx2.
+	@Override
+	public void addEdge(V vtx1, V vtx2, E label) {
+		// TODO Auto-generated method stub
+	}
+	
+	public void printMatrix() {}
 }

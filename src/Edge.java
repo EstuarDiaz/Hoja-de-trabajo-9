@@ -1,16 +1,12 @@
 public class Edge<V,E>
 {
-	boolean isDirected, visited;
 	V v0,v1;
-	E label;
+	E weight;
 	
-	public Edge(V vtx1, V vtx2, E label,
-	boolean directed) {
-		this.isDirected = directed;
+	public Edge(V vtx1, V vtx2, E weight) {
 		this.v0 = vtx1;
 		this.v1 = vtx2;
-		this.label = label;
-		this.visited = false;
+		this.weight = weight;
 	}
 	// post: edge associates vtx1 and vtx2; labeled with label
 	// directed if "directed" set true
@@ -25,40 +21,15 @@ public class Edge<V,E>
 	}
 	// post: returns second node in edge
 	
-	public void setLabel(E label) {
-		this.label = label;
+	public void setWeight(E weight) {
+		this.weight = weight;
 	}
 	// post: sets label of this edge to label
 	
-	public E label() {
-		return this.label;
+	public E weight() {
+		return this.weight;
 	}
 	// post: returns label associated with this edge
-	
-	public boolean visit() {
-		boolean isVisited = this.visited;
-		this.visited = true;
-		return isVisited;
-	}
-	// post: visits edge, returns whether previously visited
-	
-	public boolean isVisited() {
-		return this.visited;
-	}
-	// post: returns true iff edge has been visited
-	
-	public boolean isDirected() {
-		return this.isDirected;
-	}
-	// post: returns true iff edge is directed
-	
-	public void reset() {
-		this.visited = false;
-	}
-	// post: resets edge's visited flag to initial state
-	
-	//{v1,v2}.equals({u1,u2})
-	//u1.equals(v1) and u2.equals(v2)
 	
 	public boolean equals(Edge<V,E> e) {
 		return e.here().equals(this.here()) && e.there().equals(this.there());
