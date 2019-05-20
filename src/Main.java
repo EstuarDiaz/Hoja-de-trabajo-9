@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -38,8 +39,59 @@ public class Main {
 				}
 				G.printMatrix();
 				G.printMinimumMatrix();
-				G.printShortestPath(3, 2);
 				System.out.println("Centro: "+G.getCenter());
+				// Menu
+				String respuesta = "";
+				while(!respuesta.equals("6")) {
+					System.out.println("Menu:");
+					System.out.println("1. Calcular ruta mas corta");
+					System.out.println("2. Calcular el centro del grafo");
+					System.out.println("3. Editar");
+					System.out.println("4. Mostrar matriz de adyacencia");
+					System.out.println("5. Mostrar matriz de caminos mas cortos");
+					System.out.println("6. Salir");
+					Scanner input = new Scanner(System.in);
+					respuesta = input.nextLine();
+					if(respuesta.equals("1")) {
+						System.out.println("Ingrese la ciudad de partida");
+						Scanner input2 = new Scanner(System.in);
+						String partida = input2.nextLine();
+						System.out.println("Ingrese la ciudad de llegada");
+						Scanner input3 = new Scanner(System.in);
+						String llegada = input3.nextLine();
+						G.printShortestPath(partida, llegada);
+					}
+					else if(respuesta.equals("2")){
+						System.out.println("Centro: "+G.getCenter());
+					}
+					else if(respuesta.equals("3")) {
+						System.out.println("1. Quitar camino");
+						System.out.println("2. Agregar camino");
+						Scanner input5 = new Scanner(System.in);
+						String tipo = input5.nextLine();
+						System.out.println("Ingrese la ciudad de partida");
+						Scanner input2 = new Scanner(System.in);
+						String partida = input2.nextLine();
+						System.out.println("Ingrese la ciudad de llegada");
+						Scanner input3 = new Scanner(System.in);
+						String llegada = input3.nextLine();
+						if(tipo.equals("2")) {
+							System.out.println("Ingrese la distancia");
+							Scanner input4 = new Scanner(System.in);
+							Float distancia = Float.valueOf(input4.nextLine());
+							G.addEdge(partida, llegada, distancia);
+						}
+						else {
+							G.removeEdge(partida, llegada);	
+						}
+					}
+					else if(respuesta.equals("4")) {
+						G.printMatrix();
+					}
+					else if(respuesta.equals("5")) {
+						G.printMinimumMatrix();
+					}
+				}
 	        }
 	        else {
 	        	System.out.println("El archivo esta vacio.");

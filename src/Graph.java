@@ -10,7 +10,7 @@ public interface Graph<V,E>
 	// post: an edge (possibly directed) is inserted between
 	// vtx1 and vtx2.
 	
-	public E removeEdge(E edge);
+	public void removeEdge(V v1, V v2);
 	// pre: vLabel1 and vLabel2 are labels of existing vertices
 	// post: edge is removed, its label is returned
 	

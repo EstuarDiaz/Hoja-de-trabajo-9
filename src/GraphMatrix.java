@@ -46,8 +46,9 @@ public class GraphMatrix<V,E>
 	}
 
 
-	public E removeEdge(E edge) {
-		int index = this.edges.indexOf(edge);
+	public void removeEdge(V v1, V v2) {
+		Edge<V,E> e = new Edge<V,E>(v1,v2, null);
+		int index = this.edges.indexOf(e);
 		for(int i = 0; i < this.size; i++) {
 			if(i != index) {
 				this.AdjMatrix[i][index] = Float.POSITIVE_INFINITY;
@@ -55,7 +56,6 @@ public class GraphMatrix<V,E>
 			}
 		}
 		this.calculateCenter();
-		return edge;
 	}
 	
 	public int size() {
@@ -126,7 +126,9 @@ public class GraphMatrix<V,E>
 		}
 	}
 	
-	public void printShortestPath(int q, int r) {
+	public void printShortestPath(V partida, V llegada) {
+		int q = this.vertices.indexOf(partida);
+		int r = this.vertices.indexOf(llegada);
 		System.out.println("Camino mas corto de "+this.vertices.get(q)+" a "+this.vertices.get(r)+":");
 		System.out.println(this.vertices.get(q));
 		this.P(q, r);
