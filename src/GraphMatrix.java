@@ -49,13 +49,15 @@ public class GraphMatrix<V,E>
 	public void removeEdge(V v1, V v2) {
 		Edge<V,E> e = new Edge<V,E>(v1,v2, null);
 		int index = this.edges.indexOf(e);
-		for(int i = 0; i < this.size; i++) {
-			if(i != index) {
-				this.AdjMatrix[i][index] = Float.POSITIVE_INFINITY;
-				this.AdjMatrix[index][i] = Float.POSITIVE_INFINITY;	
+		if(index >= 0) {
+			for(int i = 0; i < this.size; i++) {
+				if(i != index) {
+					this.AdjMatrix[i][index] = Float.POSITIVE_INFINITY;
+					this.AdjMatrix[index][i] = Float.POSITIVE_INFINITY;	
+				}
 			}
+			this.calculateCenter();
 		}
-		this.calculateCenter();
 	}
 	
 	public int size() {
